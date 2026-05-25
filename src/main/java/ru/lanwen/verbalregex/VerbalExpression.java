@@ -1,7 +1,6 @@
 package ru.lanwen.verbalregex;
 
 import static java.lang.String.valueOf;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,19 +15,25 @@ public class VerbalExpression {
     public static class Builder {
 
         private StringBuilder prefixes = new StringBuilder();
+
         private StringBuilder source = new StringBuilder();
+
         private StringBuilder suffixes = new StringBuilder();
+
         private int modifiers = Pattern.MULTILINE;
 
-        private static final Map<Character, Integer> SYMBOL_MAP = new HashMap<Character, Integer>() {{
-            put('d', Pattern.UNIX_LINES);
-            put('i', Pattern.CASE_INSENSITIVE);
-            put('x', Pattern.COMMENTS);
-            put('m', Pattern.MULTILINE);
-            put('s', Pattern.DOTALL);
-            put('u', Pattern.UNICODE_CASE);
-            put('U', Pattern.UNICODE_CHARACTER_CLASS);
-        }};
+        private static final Map<Character, Integer> SYMBOL_MAP = new HashMap<Character, Integer>() {
+
+            {
+                put('d', Pattern.UNIX_LINES);
+                put('i', Pattern.CASE_INSENSITIVE);
+                put('x', Pattern.COMMENTS);
+                put('m', Pattern.MULTILINE);
+                put('s', Pattern.DOTALL);
+                put('u', Pattern.UNICODE_CASE);
+                put('U', Pattern.UNICODE_CHARACTER_CLASS);
+            }
+        };
 
         /**
          * Package private. Use {@link #regex()} to build a new one
@@ -63,9 +68,7 @@ public class VerbalExpression {
         }
 
         public VerbalExpression build() {
-            Pattern pattern = Pattern.compile(new StringBuilder(prefixes)
-                    .append(source).append(suffixes).toString(), modifiers);
-            return new VerbalExpression(pattern);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -81,8 +84,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder add(final String pValue) {
-            this.source.append(pValue);
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -93,7 +95,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder add(final Builder regex) {
-            return this.group().add(regex.build().toString()).endGr();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -103,11 +105,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder startOfLine(final boolean pEnable) {
-            this.prefixes.append(pEnable ? "^" : "");
-            if (!pEnable) {
-                this.prefixes = new StringBuilder(this.prefixes.toString().replace("^", ""));
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -117,7 +115,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder startOfLine() {
-            return startOfLine(true);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -127,11 +125,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder endOfLine(final boolean pEnable) {
-            this.suffixes.append(pEnable ? "$" : "");
-            if (!pEnable) {
-                this.suffixes = new StringBuilder(this.suffixes.toString().replace("$", ""));
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -141,7 +135,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder endOfLine() {
-            return endOfLine(true);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -151,7 +145,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder then(final String pValue) {
-            return this.add("(?:" + sanitize(pValue) + ")");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -163,7 +157,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder find(final String value) {
-            return this.then(value);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -182,29 +176,29 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder maybe(final String pValue) {
-            return this.then(pValue).add("?");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
-         * Add a regex to the expression that might appear once (or not)
-         * Example:
-         * The following matches all names that have a prefix or not.
-         * VerbalExpression.Builder namePrefix = regex().oneOf("Mr.", "Ms.");
-	 * VerbalExpression name = regex()
-	 *	.maybe(namePrefix)
-	 *	.space()
-	 *	.zeroOrMore()
-	 *	.word()
-	 *	.oneOrMore()
-	 *	.build();
-         * regex.test("Mr. Bond/")    //true
-         * regex.test("James")   //true
+         *  Add a regex to the expression that might appear once (or not)
+         *  Example:
+         *  The following matches all names that have a prefix or not.
+         *  VerbalExpression.Builder namePrefix = regex().oneOf("Mr.", "Ms.");
+         *  VerbalExpression name = regex()
+         * 	.maybe(namePrefix)
+         * 	.space()
+         * 	.zeroOrMore()
+         * 	.word()
+         * 	.oneOrMore()
+         * 	.build();
+         *  regex.test("Mr. Bond/")    //true
+         *  regex.test("James")   //true
          *
-         * @param regex - the string to be looked for
-         * @return this builder
+         *  @param regex - the string to be looked for
+         *  @return this builder
          */
         public Builder maybe(final Builder regex) {
-            return this.group().add(regex).endGr().add("?");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -213,7 +207,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder anything() {
-            return this.add("(?:.*)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -223,7 +217,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder anythingBut(final String pValue) {
-            return this.add("(?:[^" + sanitize(pValue) + "]*)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -232,11 +226,11 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder something() {
-            return this.add("(?:.+)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder somethingButNot(final String pValue) {
-            return this.add("(?:[^" + sanitize(pValue) + "]+)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -245,7 +239,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder lineBreak() {
-            return this.add("(?:\\n|(?:\\r\\n)|(?:\\r\\r))");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -254,7 +248,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder br() {
-            return this.lineBreak();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -263,7 +257,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder tab() {
-            return this.add("(?:\\t)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -272,23 +266,20 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder word() {
-            return this.add("(?:\\w+)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
 
         /*
            --- Predefined character classes
          */
-
         /**
          * Add word character, same as [a-zA-Z_0-9]
          *
          * @return this builder
          */
         public Builder wordChar() {
-            return this.add("(?:\\w)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
 
         /**
          * Add non-word character: [^\w]
@@ -296,7 +287,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder nonWordChar() {
-            return this.add("(?:\\W)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -305,7 +296,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder nonDigit() {
-            return this.add("(?:\\D)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -314,7 +305,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder digit() {
-            return this.add("(?:\\d)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -323,7 +314,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder space() {
-            return this.add("(?:\\s)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -332,7 +323,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder nonSpace() {
-            return this.add("(?:\\S)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -351,18 +342,14 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder wordBoundary() {
-            return this.add("(?:\\b)");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
-
 
         /*
            --- / end of predefined character classes
          */
-
-
         public Builder anyOf(final String pValue) {
-            this.add("[" + sanitize(pValue) + "]");
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -372,7 +359,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder any(final String value) {
-            return this.anyOf(value);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -385,41 +372,19 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder range(final String... pArgs) {
-            StringBuilder value = new StringBuilder("[");
-            for (int firstInPairPosition = 1; firstInPairPosition < pArgs.length; firstInPairPosition += 2) {
-                String from = sanitize(pArgs[firstInPairPosition - 1]);
-                String to = sanitize(pArgs[firstInPairPosition]);
-
-                value.append(from).append("-").append(to);
-            }
-            value.append("]");
-
-            return this.add(value.toString());
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder addModifier(final char pModifier) {
-            if (SYMBOL_MAP.containsKey(pModifier)) {
-                modifiers |= SYMBOL_MAP.get(pModifier);
-            }
-
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder removeModifier(final char pModifier) {
-            if (SYMBOL_MAP.containsKey(pModifier)) {
-                modifiers &= ~SYMBOL_MAP.get(pModifier);
-            }
-
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder withAnyCase(final boolean pEnable) {
-            if (pEnable) {
-                this.addModifier('i');
-            } else {
-                this.removeModifier('i');
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -432,16 +397,11 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder withAnyCase() {
-            return withAnyCase(true);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         public Builder searchOneLine(final boolean pEnable) {
-            if (pEnable) {
-                this.removeModifier('m');
-            } else {
-                this.addModifier('m');
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -461,17 +421,7 @@ public class VerbalExpression {
          * @see #zeroOrMore()
          */
         public Builder multiple(final String pValue, final int... count) {
-            if (count == null) {
-                return this.then(pValue).oneOrMore();
-            }
-            switch (count.length) {
-                case 1:
-                    return this.then(pValue).count(count[0]);
-                case 2:
-                    return this.then(pValue).count(count[0], count[1]);
-                default:
-                    return this.then(pValue).oneOrMore();
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -483,7 +433,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder oneOrMore() {
-            return this.add("+");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -494,7 +444,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder zeroOrMore() {
-            return this.add("*");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -506,8 +456,7 @@ public class VerbalExpression {
          * @return this Builder
          */
         public Builder count(final int count) {
-            this.source.append("{").append(count).append("}");
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -521,8 +470,7 @@ public class VerbalExpression {
          * @see #count(int)
          */
         public Builder count(final int from, final int to) {
-            this.source.append("{").append(from).append(",").append(to).append("}");
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -538,7 +486,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder atLeast(final int from) {
-            return this.add("{").add(valueOf(from)).add(",}");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -550,20 +498,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder or(final String pValue) {
-            this.prefixes.append("(?:");
-
-            int opened = countOccurrencesOf(this.prefixes.toString(), "(");
-            int closed = countOccurrencesOf(this.suffixes.toString(), ")");
-
-            if (opened >= closed) {
-                this.suffixes = new StringBuilder(")" + this.suffixes.toString());
-            }
-
-            this.add(")|(?:");
-            if (pValue != null) {
-                this.then(pValue);
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -575,20 +510,7 @@ public class VerbalExpression {
          * @since 1.3
          */
         public Builder oneOf(final String... pValues) {
-            if(pValues != null && pValues.length > 0) {
-        	this.add("(?:");
-        	for(int i = 0; i < pValues.length; i++) {
-        	    String value = pValues[i];
-        	    this.add("(?:");
-        	    this.add(value);
-        	    this.add(")");
-        	    if(i < pValues.length - 1) {
-        	        this.add("|");
-        	    }
-        	}
-        	this.add(")");
-            }
-            return this;
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -597,7 +519,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder capture() {
-            return this.capture(null);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -615,12 +537,7 @@ public class VerbalExpression {
          * @since 1.6
          */
         public Builder capture(final String name) {
-            this.suffixes.append(")");
-
-            if (name == null || name.trim().isEmpty()) {
-                return this.add("(");
-            }
-            return this.add("(?<" + name + ">");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -630,7 +547,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder capt() {
-            return this.capture();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -640,7 +557,7 @@ public class VerbalExpression {
          * @since 1.6
          */
         public Builder capt(final String name) {
-            return this.capture(name);
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -657,8 +574,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder group() {
-            this.suffixes.append(")");
-            return this.add("(?:");
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -668,12 +584,7 @@ public class VerbalExpression {
          * @return this builder
          */
         public Builder endCapture() {
-            if (this.suffixes.indexOf(")") != -1) {
-                this.suffixes.setLength(suffixes.length() - 1);
-                return this.add(")");
-            } else {
-                throw new IllegalStateException("Can't end capture (group) when it not started");
-            }
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -683,7 +594,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder endCapt() {
-            return this.endCapture();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
 
         /**
@@ -697,7 +608,7 @@ public class VerbalExpression {
          * @since 1.2
          */
         public Builder endGr() {
-            return this.endCapture();
+            throw new UnsupportedOperationException("STUB: not implemented");
         }
     }
 
@@ -718,11 +629,7 @@ public class VerbalExpression {
      * @return true if matches exact string, false otherwise
      */
     public boolean testExact(final String pToTest) {
-        boolean ret = false;
-        if (pToTest != null) {
-            ret = pattern.matcher(pToTest).matches();
-        }
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -732,11 +639,7 @@ public class VerbalExpression {
      * @return true if string contains regex, false otherwise
      */
     public boolean test(final String pToTest) {
-        boolean ret = false;
-        if (pToTest != null) {
-            ret = pattern.matcher(pToTest).find();
-        }
-        return ret;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -747,7 +650,7 @@ public class VerbalExpression {
      * @return group 0, extracted from text
      */
     public String getText(final String toTest) {
-        return getText(toTest, 0);
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -759,15 +662,7 @@ public class VerbalExpression {
      * @since 1.1
      */
     public String getText(final String toTest, final int group) {
-        Matcher m = pattern.matcher(toTest);
-        StringBuilder result = new StringBuilder();
-        while (m.find()) {
-            String groupValue = m.group(group);
-            if (groupValue != null) {
-                result.append(groupValue);
-            }
-        }
-        return result.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -781,15 +676,7 @@ public class VerbalExpression {
      * @since 1.6
      */
     public String getText(final String toTest, final String group) {
-        Matcher m = pattern.matcher(toTest);
-        StringBuilder result = new StringBuilder();
-        while (m.find()) {
-            String groupValue = m.group(group);
-            if (groupValue != null) {
-                result.append(groupValue);
-            }
-        }
-        return result.toString();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -806,17 +693,12 @@ public class VerbalExpression {
      * @return list of extracted groups
      */
     public List<String> getTextGroups(final String toTest, final int group) {
-        List<String> groups = new ArrayList<>();
-        Matcher m = pattern.matcher(toTest);
-        while (m.find()) {
-            groups.add(m.group(group));
-        }
-        return groups;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     @Override
     public String toString() {
-        return pattern.pattern();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -827,15 +709,7 @@ public class VerbalExpression {
      * @since 1.1
      */
     public static Builder regex(final Builder pBuilder) {
-        Builder builder = new Builder();
-
-        //Using created StringBuilder
-        builder.prefixes.append(pBuilder.prefixes);
-        builder.source.append(pBuilder.source);
-        builder.suffixes.append(pBuilder.suffixes);
-        builder.modifiers = pBuilder.modifiers;
-
-        return builder;
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 
     /**
@@ -845,6 +719,6 @@ public class VerbalExpression {
      * @since 1.1
      */
     public static Builder regex() {
-        return new Builder();
+        throw new UnsupportedOperationException("STUB: not implemented");
     }
 }
